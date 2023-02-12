@@ -1,5 +1,6 @@
 import { Type } from "class-transformer";
-import { IsString, IsNumber, IsDate } from "class-validator";
+import { IsString, IsNumber, IsDate, ValidateNested } from "class-validator";
+import { User } from "../../users/user.entity";
 
 export class CreateExpenseDto {
     @IsString()
@@ -9,8 +10,8 @@ export class CreateExpenseDto {
     @IsDate()
     readonly date: string;
 
-    @IsString()
-    readonly user: string;
+    @Type(() => User)
+    readonly userId: User;
 
     @IsNumber()
     readonly amount: number;

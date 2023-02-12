@@ -18,7 +18,7 @@ import { ExpensesModule } from './expenses/expenses.module';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.POSTGRES_DB,
       synchronize: true,
-      logging: true,
+      logging: false,
       entities: [Expense],
       subscribers: [],
       migrations: [],

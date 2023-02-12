@@ -1,4 +1,5 @@
-import { Expense } from 'src/expenses/expense.entity';
+import { Expense } from '../expenses/expense.entity';
+import { User } from '../users/user.entity';
 import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
@@ -14,7 +15,7 @@ export const databaseProviders = [
                 database: "onFly",
                 synchronize: true,
                 logging: true,
-                entities: [Expense],
+                entities: [Expense, User],
                 subscribers: [],
                 migrations: [],
             });

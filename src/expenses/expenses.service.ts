@@ -4,13 +4,9 @@ import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { Expense } from './expense.entity';
 
-
 @Injectable()
 export class ExpensesService {
-  constructor(
-    @Inject('EXPENSE_REPOSITORY')
-    private expenseRepository: Repository<Expense>,
-  ) { }
+  constructor(@Inject('EXPENSE_REPOSITORY') private expenseRepository: Repository<Expense>) { }
 
   findAll(): Promise<Expense[]> {
     return this.expenseRepository.find();
@@ -20,38 +16,22 @@ export class ExpensesService {
     return this.expenseRepository.findOneBy({ id });
   }
 
-  async remove(id: string): Promise<void> {
+  async create(createExpenseDto: CreateExpenseDto): Promise<Expense> {
+    const newExpense = this.expenseRepository.create(createExpenseDto);
+    return await this.expenseRepository.save(newExpense);
+  };
+
+  async update(id: number, updateExpenseDto: UpdateExpenseDto): Promise<boolean> {
+    const findedExpense = this.findOne(id);
+    if (findedExpense) {
+      await this.expenseRepository.update(id, updateExpenseDto)
+      return true
+    } else {
+      return false
+    }
+  }
+
+  async remove(id: number): Promise<void> {
     await this.expenseRepository.delete(id);
   }
-
-  create(createExpenseDto: CreateExpenseDto) {
-    return 'This action adds a new expense';
-  }
-  
-  update(id: number, updateExpenseDto: UpdateExpenseDto) {
-    return `This action updates a #${id} expense`;
-  }
 }
-
-// @Injectable()
-// export class ExpensesService {
-//   create(createExpenseDto: CreateExpenseDto) {
-//     return 'This action adds a new expense';
-//   }
-
-//   findAll() {
-//     return `This action returns all expenses`;
-//   }
-
-//   findOne(id: number) {
-//     return `This action returns a #${id} expense`;
-//   }
-
-//   
-
-//   remove(id: number) {
-//     return `This action removes a #${id} expense`;
-//   }
-// }
-
-

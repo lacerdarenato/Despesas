@@ -45,7 +45,6 @@ export class AuthService {
 
             // Check if the given password match with saved password
             const isValid = bcrypt.compareSync(user.password, userDetails.password);
-            // const isValid = true
             if (isValid) {
                 return {
                     status: 200,

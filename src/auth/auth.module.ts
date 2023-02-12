@@ -21,9 +21,8 @@ import { userProviders } from '../users/user.provider';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         return {
-          privateKey: configService.get<string>('keys.privateKey'),
-          publicKey: configService.get<string>('keys.publicKey'),
-          signOptions: { expiresIn: '60s', algorithm: 'RS256' },
+          secret: configService.get<string>('keys.jwtSecretKey'),
+          signOptions: { expiresIn: '60s' },
         };
       },
       inject: [ConfigService],

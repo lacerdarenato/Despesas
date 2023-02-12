@@ -7,4 +7,7 @@ export default () => ({
         password: process.env.DATABASE_PASSWORD,
         database: process.env.POSTGRES_DB,
     },
+    keys: {
+        jwtSecretKey: process.env.JWT_SECRET_KEY.replace(/\\n/gm, '\n'),
+      },
 });

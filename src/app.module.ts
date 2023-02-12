@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { Expense } from './expenses/expense.entity';
 import { ExpensesModule } from './expenses/expenses.module';
 import { User } from './users/user.entity'; 
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { User } from './users/user.entity';
       migrations: [],
       autoLoadEntities: true
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Expense } from './expenses/expense.entity';
 import { ExpensesModule } from './expenses/expenses.module';
-import { Users } from './users/user.entity'; 
+import { User } from './users/user.entity'; 
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { Users } from './users/user.entity';
       database: process.env.POSTGRES_DB,
       synchronize: true,
       logging: false,
-      entities: [Expense, Users],
+      entities: [Expense, User],
       subscribers: [],
       migrations: [],
       autoLoadEntities: true

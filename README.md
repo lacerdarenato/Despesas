@@ -10,7 +10,7 @@ $ npm install
 
 ## Running the app
 
-- Crie um arquivo .env na raiz do projeto no mesmo formato .env.example e coloque preencha as variáveis para montar o projeto.
+- Crie um arquivo .env na raiz do projeto no mesmo formato .env.example e preencha as variáveis para montar o projeto.
 
 - execute o comando para subir o container do banco de dados.
 ```bash

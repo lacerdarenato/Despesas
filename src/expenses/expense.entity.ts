@@ -15,6 +15,10 @@ export class Expense {
     @Column({ type: 'numeric', precision: 10, scale: 2 })
     amount: number;
 
+    @Column()
+    userId: number;
+
     @ManyToOne(() => User, (user) => user.expenses)
+    @JoinColumn({ name: 'userId' })
     user: User;
 }

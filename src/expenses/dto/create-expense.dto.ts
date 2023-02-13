@@ -13,7 +13,7 @@ export class CreateExpenseDto {
     readonly date: string;
 
     @Type(() => User)
-    readonly userId: User;
+    readonly user: User;
 
     @IsPositive()
     @Max(99999999)

@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
 import { Repository } from 'typeorm';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
@@ -9,7 +10,8 @@ import { User } from '../users/user.entity';
 export class ExpensesService {
   constructor(
     @Inject('EXPENSE_REPOSITORY') private expenseRepository: Repository<Expense>,
-    @Inject('USER_REPOSITORY') private userRepository: Repository<User>
+    @Inject('USER_REPOSITORY') private userRepository: Repository<User>,
+    private mailerService: MailerService
   ) { }
 
   findAll(): Promise<Expense[]> {
@@ -23,8 +25,8 @@ export class ExpensesService {
   async create(createExpenseDto: CreateExpenseDto): Promise<Expense> {
     const newExpense = this.expenseRepository.create(createExpenseDto);
     const savedExpense = await this.expenseRepository.save(newExpense);
-    const userEmail = await this.getEmailByUserId(savedExpense)
-    console.log(userEmail)
+    const userEmail = await this.getEmailByUserId(savedExpense.userId);
+    this.enviarEmail(userEmail, savedExpense)
     return savedExpense;
   };
 
@@ -42,9 +44,26 @@ export class ExpensesService {
     await this.expenseRepository.delete(id);
   }
 
-  async getEmailByUserId(expense: Expense): Promise<string> {
-    return (await this.userRepository.findOneBy(expense.user)).email;
+  async getEmailByUserId(id: number): Promise<string> {
+    console.log(id)
+    const findedUser = await this.userRepository.findOneBy({ id })
+    return findedUser.email
   }
 
-  
+  async enviarEmail(email: string, expense: Expense): Promise<void> {
+    console.log(email)
+    await this.mailerService.sendMail({
+      to: email,
+      subject: "despesa cadastrada",
+      html: `
+        <dl>
+            <dt> (Nova despesa cadastrada) </dt>
+            <li>Data: ${expense.date}</li>
+            <li>Descricao: ${expense.description}</li>
+            <li>Valor: ${expense.amount}</li>
+        </dl>
+      `,
+    }).catch((error) => console.log(error));
+  }
+
 }

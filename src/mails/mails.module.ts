@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from 'src/config/configuration';
 import { MailsService } from './mails.service';
 import { MailerModule } from '@nestjs-modules/mailer/dist';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 
+@Global()
 @Module({
   imports: [
     ConfigModule.forRoot({

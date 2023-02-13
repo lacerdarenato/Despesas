@@ -10,17 +10,19 @@ $ npm install
 
 ## Running the app
 
+- Crie um arquivo .env na raiz do projeto no mesmo formato .env.example e coloque preencha as variáveis para montar o projeto.
+
+- execute o comando para subir o container do banco de dados.
 ```bash
 $ docker-compose up -d
 
 ```
 
+- execute o comando para iniciar a aplicação.
 ```bash
 $ npm run start
 
 ```
-
-
 
 ## Test
 

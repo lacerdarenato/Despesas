@@ -8,6 +8,8 @@ import { Expense } from './expenses/expense.entity';
 import { ExpensesModule } from './expenses/expenses.module';
 import { User } from './users/user.entity'; 
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { MailsModule } from './mails/mails.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { AuthModule } from './auth/auth.module';
       inject: [ConfigService],
     }),
     AuthModule,
+    UsersModule,
+    MailsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

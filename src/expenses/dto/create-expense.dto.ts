@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsString, IsNumber, IsDate, MaxLength, IsPositive, MaxDate } from "class-validator";
+import { IsString, IsNumber, IsDate, MaxLength, IsPositive, MaxDate, Max } from "class-validator";
 import { User } from "../../users/user.entity";
 
 export class CreateExpenseDto {
@@ -16,6 +16,7 @@ export class CreateExpenseDto {
     readonly userId: User;
 
     @IsPositive()
+    @Max(99999999)
     @IsNumber()
     readonly amount: number;
 }

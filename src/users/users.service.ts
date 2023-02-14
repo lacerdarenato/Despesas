@@ -29,6 +29,7 @@ export class UsersService {
     let isOk = false;
 
     const createUsersDTO = new CreateUsersDTO();
+    createUsersDTO.username = body.username;
     createUsersDTO.email = body.email;
     createUsersDTO.password = bcrypt.hashSync(body.password, 10);
 

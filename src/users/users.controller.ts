@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { UsersService } from './users.service'
 import { CreateUsersDTO } from './dto/create-user.dto'
-import { Body, Get, Param } from '@nestjs/common/decorators';
+import { Body, Get, Param, Post, Req, Res } from '@nestjs/common/decorators';
 
 @Controller('users')
 export class UsersController {
@@ -15,6 +15,11 @@ export class UsersController {
     @Get(':id')
     findEmailByUserId(@Param('id') id: string) {
         return this.usersService.findEmailByUserId(+id)
+    }
 
+    @Post('register')
+    async register(@Req() req, @Res() res, @Body() body) {
+        const auth = await this.usersService.create(body);
+        res.status(auth.status).json(auth.content);
     }
 }

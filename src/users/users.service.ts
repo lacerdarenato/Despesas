@@ -31,7 +31,8 @@ export class UsersService {
     const createUsersDTO = new CreateUsersDTO();
     createUsersDTO.username = body.username;
     createUsersDTO.email = body.email;
-    createUsersDTO.password = bcrypt.hashSync(body.password, 10);
+    createUsersDTO.password = body.password;
+    // createUsersDTO.password = bcrypt.hashSync(body.password, 10);
 
     await validate(createUsersDTO).then((errors) => {
       isOk = (errors.length > 0) ? false : true

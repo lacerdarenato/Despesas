@@ -8,6 +8,10 @@ export class UsersService {
     constructor(
         @Inject('USER_REPOSITORY') private userRepository: Repository<User>,
     ) { }
+    
+    async findOne(email: string): Promise<User | undefined> {
+        return this.userRepository.findOneBy({ email });
+    }
 
     async findAllExpenses(id: number): Promise<Expense[]> {
         return (await this.userRepository.findOneBy({ id })).expenses;
@@ -16,5 +20,6 @@ export class UsersService {
     async findEmailByUserId(id: number): Promise<string> {
         const findedUser = await this.userRepository.findOneBy({ id })
         return findedUser.email
-      }
+    }
+    
 }

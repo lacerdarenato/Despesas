@@ -21,4 +21,12 @@ export class Expense {
     @ManyToOne(() => User, (user) => user.expenses)
     @JoinColumn({ name: 'userId' })
     user: User;
+
+    constructor(expense?: Partial<Expense>) {
+        this.id = expense?.id;
+        this.description = expense?.description;
+        this.date = expense?.date;
+        this.amount = expense?.amount;
+        this.user = expense?.user;
+     }
 }
